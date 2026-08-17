@@ -1,14 +1,13 @@
 package com.AI_investigator.model;
 
-import com.AI_investigator.dto.enums.DepartureSectorEnum;
-import com.AI_investigator.dto.enums.DestinationSectorEnum;
+import com.AI_investigator.dto.enums.*;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Entity
 @Data
@@ -21,7 +20,6 @@ public class Flight {
     private Long id;
 
     private String flightNumber;
-//    private String airline;
 
     @Enumerated(EnumType.STRING)
     private DepartureSectorEnum departureSector;
@@ -32,11 +30,29 @@ public class Flight {
     private LocalDateTime departureTime;
     private LocalDateTime arrivalTime;
 
-    private BigDecimal price;
+    // Base fare in INR
+    @ElementCollection
+    private List<Price> basePrice;
+    @ElementCollection
+    private List<Price> currentPrice;
 
-    private Integer availableSeats;
-    private Integer totalSeats;
+//    private Integer availableSeats;
+//    private Integer totalSeats;
+
+    // Baggage
+    @Enumerated(EnumType.STRING)
+    private BaggageAllowance[] baggageAllowance;
+
+    @Enumerated(EnumType.STRING)
+    private FareType[] fareType;
 
     @Enumerated(EnumType.STRING)
     private FlightStatus status;
+
+    @OneToMany(
+            mappedBy = "flight",
+            cascade = CascadeType.ALL,
+            orphanRemoval = true
+    )
+    private List<Seat> seatMap;
 }

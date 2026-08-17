@@ -52,5 +52,9 @@ public enum DepartureSectorEnum {
     DMU,
     AJL,
     DIB,
-    JRH
+    JRH;
+
+    public boolean isInternational() {
+        return this == DXB || this == SIN;
+    }
 }
