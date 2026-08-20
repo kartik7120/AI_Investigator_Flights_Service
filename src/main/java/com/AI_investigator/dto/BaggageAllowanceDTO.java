@@ -1,4 +1,9 @@
 package com.AI_investigator.dto;
 
-public record BaggageAllowanceDTO() {
+public record BaggageAllowanceDTO(
+
+        String fareType,
+        int cabinBaggageAllowance,
+        int checkInBaggageAllowance
+) {
 }

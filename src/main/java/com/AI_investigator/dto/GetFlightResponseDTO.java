@@ -16,7 +16,7 @@ public record GetFlightResponseDTO(
         LocalDateTime departureTime,
         LocalDateTime arrivalTime,
         List<Price> currentPrice,
-        BaggageAllowance[] baggageAllowance,
+        List<BaggageAllowanceDTO> baggageAllowance,
         List<Price> basePrice
 ) {
 }

@@ -38,7 +38,7 @@ public class FlightApi {
 
         flights = flightService.getFlights(getFlightRequest);
 
-        List<GetFlightResponseDTO> flightsResponse =flightMapper.toDTO(flights);
+        List<GetFlightResponseDTO> flightsResponse = flightMapper.toDTO(flights);
 
         return ResponseEntity.ok(flightsResponse);
     }
