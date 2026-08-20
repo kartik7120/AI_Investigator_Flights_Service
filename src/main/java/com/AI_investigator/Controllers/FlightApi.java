@@ -1,6 +1,8 @@
 package com.AI_investigator.Controllers;
 
+import com.AI_investigator.Components.FlightMapper;
 import com.AI_investigator.dto.GetFlightRequest;
+import com.AI_investigator.dto.GetFlightResponseDTO;
 import com.AI_investigator.model.Flight;
 import com.AI_investigator.service.FlightService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,6 +12,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -17,6 +20,9 @@ public class FlightApi {
 
     @Autowired
     private FlightService flightService;
+
+    @Autowired
+    private FlightMapper flightMapper;
 
     @PostMapping("/seedFlights")
     public ResponseEntity<List<Flight>> seedFlights() {
@@ -26,8 +32,14 @@ public class FlightApi {
     }
 
     @PostMapping("/getFlights")
-    public String getFlights(@RequestBody GetFlightRequest getFlightRequest) {
+    public ResponseEntity<List<GetFlightResponseDTO>> getFlights(@RequestBody GetFlightRequest getFlightRequest) {
 
-        return "";
+        List<Flight> flights;
+
+        flights = flightService.getFlights(getFlightRequest);
+
+        List<GetFlightResponseDTO> flightsResponse =flightMapper.toDTO(flights);
+
+        return ResponseEntity.ok(flightsResponse);
     }
 }
