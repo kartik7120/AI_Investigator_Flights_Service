@@ -2,12 +2,11 @@ package com.AI_investigator.seeder;
 
 
 import com.AI_investigator.dto.enums.*;
-import com.AI_investigator.model.Flight;
-import com.AI_investigator.model.FlightRoutes;
-import com.AI_investigator.model.Price;
-import com.AI_investigator.model.Seat;
+import com.AI_investigator.model.*;
+import com.AI_investigator.utils.GenerateSSR;
 import net.datafaker.Faker;
 import org.jspecify.annotations.NonNull;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
@@ -29,6 +28,9 @@ public class FlightDataSeeder {
 
     private final Faker faker = new Faker();
 
+    @Autowired
+    private GenerateSSR ssrGenerator;
+
     public List<Flight> generateFakeFlights() {
         List<Flight> flights = new ArrayList<>();
 
@@ -38,6 +40,10 @@ public class FlightDataSeeder {
             Flight flight = new Flight();
 
             FlightRoute r = faker.options().option(FlightRoutes.ROUTES.toArray(new FlightRoute[0]));
+
+            List<SSR> economySSRs = ssrGenerator.createDefaultSSRs(flight);
+            List<SSR> premiumSSRs = ssrGenerator.createPremiumSSRs(flight);
+            List<SSR> businessSSRs = ssrGenerator.createBusinessSSRs(flight);
 
             DepartureSectorEnum departure = r.departure();
             DestinationSectorEnum destination = r.destination();
@@ -117,6 +123,13 @@ public class FlightDataSeeder {
 
             flight.setSeatMap(seats);
 
+            List<SSR> allSSRs = new ArrayList<>();
+
+            allSSRs.addAll(economySSRs);
+            allSSRs.addAll(premiumSSRs);
+            allSSRs.addAll(businessSSRs);
+
+            flight.setSsrList(allSSRs);
             flights.add(flight);
         }
 

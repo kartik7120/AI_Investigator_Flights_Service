@@ -3,15 +3,21 @@ package com.AI_investigator.Controllers;
 import com.AI_investigator.Components.FlightMapper;
 import com.AI_investigator.dto.GetFlightRequest;
 import com.AI_investigator.dto.GetFlightResponseDTO;
+import com.AI_investigator.dto.enums.FareType;
+import com.AI_investigator.dto.enums.SSREnum;
 import com.AI_investigator.model.Flight;
+import com.AI_investigator.model.SSR;
 import com.AI_investigator.service.FlightService;
+import lombok.Getter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -42,4 +48,16 @@ public class FlightApi {
 
         return ResponseEntity.ok(flightsResponse);
     }
+
+    @PostMapping("/getFlightSSRs")
+    public ResponseEntity<List<SSR>> getFlightSSRs(@RequestBody int flightID, @RequestBody FareType fareType) {
+
+        List<SSR> ssrs;
+
+        ssrs = flightService.getFlightSSR(flightID, fareType);
+
+        return ResponseEntity.ok(ssrs);
+    }
+
+
 }

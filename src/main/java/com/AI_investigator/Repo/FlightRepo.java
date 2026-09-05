@@ -3,7 +3,9 @@ package com.AI_investigator.Repo;
 import com.AI_investigator.dto.GetFlightRequest;
 import com.AI_investigator.dto.enums.DepartureSectorEnum;
 import com.AI_investigator.dto.enums.DestinationSectorEnum;
+import com.AI_investigator.dto.enums.FareType;
 import com.AI_investigator.model.Flight;
+import com.AI_investigator.model.SSR;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -22,6 +24,8 @@ public interface FlightRepo extends JpaRepository<Flight, Integer> {
             @Param("startDate") LocalDateTime departureDate,
             @Param("endDate") LocalDateTime nextDate
     );
+
+    List<SSR> findByFlightIdAndFareType(Long flightId, FareType fareType);
 
 //    @Query("SELECT f FROM Flight f WHERE f.")
 //    List<Flight> getFlightOneWay(

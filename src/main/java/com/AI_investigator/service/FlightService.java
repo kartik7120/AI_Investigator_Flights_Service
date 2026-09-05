@@ -2,7 +2,9 @@ package com.AI_investigator.service;
 
 import com.AI_investigator.Repo.FlightRepo;
 import com.AI_investigator.dto.GetFlightRequest;
+import com.AI_investigator.dto.enums.FareType;
 import com.AI_investigator.model.Flight;
+import com.AI_investigator.model.SSR;
 import com.AI_investigator.seeder.FlightDataSeeder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -46,5 +48,10 @@ public class FlightService {
                 departureDate,
                 returnDate
         );
+    }
+
+    public List<SSR> getFlightSSR(Long flightID, FareType fareType) {
+
+        return flightRepo.findByFlightIdAndFareType(flightID, fareType);
     }
 }

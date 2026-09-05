@@ -54,4 +54,11 @@ public class Flight {
             orphanRemoval = true
     )
     private List<Seat> seatMap;
+
+    @OneToMany(
+            mappedBy = "flight",
+            cascade = CascadeType.ALL,
+            orphanRemoval = true
+    )
+    private List<SSR> ssrList;
 }
