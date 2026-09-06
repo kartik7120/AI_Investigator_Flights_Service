@@ -26,12 +26,10 @@ public class SSR {
     @Enumerated(EnumType.STRING)
     private FareType fareType;
 
-    private Double price;
+    private BigDecimal price;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "flight_id")
     private Flight flight;
 
-    public SSR(Long id, SSREnum ssrEnum, int quantity, BigDecimal bigDecimal, Flight flight, FareType fareType) {
-    }
 }

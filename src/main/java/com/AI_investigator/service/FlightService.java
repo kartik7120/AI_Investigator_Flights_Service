@@ -52,6 +52,6 @@ public class FlightService {
 
     public List<SSR> getFlightSSR(Long flightID, FareType fareType) {
 
-        return flightRepo.findByFlightIdAndFareType(flightID, fareType);
+        return flightRepo.findByIdAndFareType(flightID, fareType);
     }
 }

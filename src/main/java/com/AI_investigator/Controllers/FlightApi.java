@@ -50,7 +50,7 @@ public class FlightApi {
     }
 
     @PostMapping("/getFlightSSRs")
-    public ResponseEntity<List<SSR>> getFlightSSRs(@RequestBody int flightID, @RequestBody FareType fareType) {
+    public ResponseEntity<List<SSR>> getFlightSSRs(@RequestBody long flightID, @RequestBody FareType fareType) {
 
         List<SSR> ssrs;
 

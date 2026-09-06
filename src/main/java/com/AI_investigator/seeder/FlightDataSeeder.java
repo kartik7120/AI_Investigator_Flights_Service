@@ -45,6 +45,9 @@ public class FlightDataSeeder {
             List<SSR> premiumSSRs = ssrGenerator.createPremiumSSRs(flight);
             List<SSR> businessSSRs = ssrGenerator.createBusinessSSRs(flight);
 
+            System.out.println("flight = " + flight.getId());
+            System.out.println("economySSRs = " + economySSRs);
+
             DepartureSectorEnum departure = r.departure();
             DestinationSectorEnum destination = r.destination();
 
