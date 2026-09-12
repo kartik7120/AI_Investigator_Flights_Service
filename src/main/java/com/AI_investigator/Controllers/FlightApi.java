@@ -1,8 +1,11 @@
 package com.AI_investigator.Controllers;
 
 import com.AI_investigator.Components.FlightMapper;
+import com.AI_investigator.Components.SSRMapper;
+import com.AI_investigator.dto.FlightSSRRequest;
 import com.AI_investigator.dto.GetFlightRequest;
 import com.AI_investigator.dto.GetFlightResponseDTO;
+import com.AI_investigator.dto.SSRDto;
 import com.AI_investigator.dto.enums.FareType;
 import com.AI_investigator.dto.enums.SSREnum;
 import com.AI_investigator.model.Flight;
@@ -12,16 +15,14 @@ import lombok.Getter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
-@Controller
+@RestController
+@CrossOrigin(origins = "http://localhost:6006")
 public class FlightApi {
 
     @Autowired
@@ -29,6 +30,9 @@ public class FlightApi {
 
     @Autowired
     private FlightMapper flightMapper;
+
+    @Autowired
+    private SSRMapper ssrMapper;
 
     @PostMapping("/seedFlights")
     public ResponseEntity<List<Flight>> seedFlights() {
@@ -50,14 +54,35 @@ public class FlightApi {
     }
 
     @PostMapping("/getFlightSSRs")
-    public ResponseEntity<List<SSR>> getFlightSSRs(@RequestBody long flightID, @RequestBody FareType fareType) {
+    public ResponseEntity<List<SSRDto>> getFlightSSRs(@RequestBody FlightSSRRequest flightSSRRequest) {
 
         List<SSR> ssrs;
 
-        ssrs = flightService.getFlightSSR(flightID, fareType);
+        Long l = (long) flightSSRRequest.getFlightID();
 
-        return ResponseEntity.ok(ssrs);
+        ssrs = flightService.getFlightSSR(flightSSRRequest.getFlightID(), FareType.valueOf(flightSSRRequest.getFareType()));
+
+        List<SSRDto> ssrDtos = ssrMapper.getSSRDtos(ssrs);
+
+        return ResponseEntity.ok(ssrDtos);
     }
 
+    @GetMapping("/getFlight/{flightID}")
+    public ResponseEntity<GetFlightResponseDTO> getFlightDetails(@PathVariable String flightID) {
+
+        int fId = Integer.parseInt(flightID);
+
+        Flight f = flightService.getFlight(fId);
+
+        GetFlightResponseDTO getFlightResponseDTO = flightMapper.toDTO(f);
+
+        return ResponseEntity.ok(getFlightResponseDTO);
+    }
+
+    @PostMapping("/bookFlightInvestory")
+    public ResponseEntity<String> bookFlightInventory(@RequestBody FlightInvestory flightInventory) {
+
+
+    }
 
 }

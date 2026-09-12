@@ -50,8 +50,13 @@ public class FlightService {
         );
     }
 
-    public List<SSR> getFlightSSR(Long flightID, FareType fareType) {
+    public List<SSR> getFlightSSR(int flightID, FareType fareType) {
 
-        return flightRepo.findByIdAndFareType(flightID, fareType);
+        return flightRepo.findSSRsByFlightIdAndFareType(flightID, fareType);
+    }
+
+    public Flight getFlight(int flightID) {
+
+        return flightRepo.getFlightByid(flightID);
     }
 }

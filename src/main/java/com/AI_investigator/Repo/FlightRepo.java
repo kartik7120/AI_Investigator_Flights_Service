@@ -25,12 +25,19 @@ public interface FlightRepo extends JpaRepository<Flight, Integer> {
             @Param("endDate") LocalDateTime nextDate
     );
 
-    List<SSR> findByIdAndFareType(Long Id, FareType fareType);
+//    List<SSR> findByIdAndFareType(Long Id, FareType fareType);
 
-//    @Query("SELECT f FROM Flight f WHERE f.")
-//    List<Flight> getFlightOneWay(
-//            @Param("departureSector") DepartureSectorEnum departureSector,
-//            @Param("destinationSector") DestinationSectorEnum destinationSector,
-//            @Param("startDate") LocalDateTime departureDate
-//    );
+    @Query("""
+                SELECT s
+                FROM Flight f
+                JOIN f.ssrList s
+                WHERE f.id = :flightId
+                AND s.fareType = :fareType
+            """)
+    List<SSR> findSSRsByFlightIdAndFareType(
+            @Param("flightId") Integer flightId,
+            @Param("fareType") FareType fareType
+    );
+
+    Flight getFlightByid(int flightID);
 }
