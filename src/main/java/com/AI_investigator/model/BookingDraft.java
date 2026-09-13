@@ -6,6 +6,8 @@ import lombok.Setter;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Getter
@@ -52,6 +54,13 @@ public class BookingDraft {
     protected void onCreate() {
         createdAt = LocalDateTime.now();
     }
+
+    @OneToMany(
+            mappedBy = "draft",
+            cascade = CascadeType.ALL,
+            orphanRemoval = true
+    )
+    private List<BookingDraftFlight> flights = new ArrayList<>();
 
     // getters and setters
 }
