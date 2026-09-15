@@ -11,6 +11,7 @@ public class BookingDraftFlightRequest {
 
     private Long flightId;
     private FareType fareType;
+    private int passengerCount;
 
     // getters and setters
 }

@@ -39,6 +39,7 @@ public class BookingDraftService {
             draftFlight.setDraft(bookingDraft);
             draftFlight.setFlight(flight);
             draftFlight.setFareType(request.getFareType());
+            draftFlight.setPassengerCount(request.getPassengerCount());
 
             BigDecimal fareAmount =
                     getFareAmount(flight, request.getFareType());
@@ -65,5 +66,9 @@ public class BookingDraftService {
     public Optional<BookingDraft> getBookingDraftById(String sessionID) {
 
         return Optional.ofNullable(bookingDraftRepo.getBookingDraftBysessionId(sessionID));
+    }
+
+    public BookingDraft saveBookingDraft(BookingDraft bookingDraft) {
+        return bookingDraftRepo.save(bookingDraft);
     }
 }

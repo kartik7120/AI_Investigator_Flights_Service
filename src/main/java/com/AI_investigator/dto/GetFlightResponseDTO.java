@@ -1,6 +1,5 @@
 package com.AI_investigator.dto;
 
-import com.AI_investigator.dto.enums.BaggageAllowance;
 import com.AI_investigator.dto.enums.DepartureSectorEnum;
 import com.AI_investigator.dto.enums.DestinationSectorEnum;
 import com.AI_investigator.model.Price;

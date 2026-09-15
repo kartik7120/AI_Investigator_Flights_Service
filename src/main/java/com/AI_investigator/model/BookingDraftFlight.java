@@ -37,5 +37,7 @@ public class BookingDraftFlight {
     @Column(name = "fare_amount", nullable = false, precision = 12, scale = 2)
     private BigDecimal fareAmount;
 
+    private int passengerCount;
+
     // getters and setters
 }
