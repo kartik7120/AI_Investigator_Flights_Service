@@ -18,7 +18,7 @@ import java.util.List;
 import java.util.UUID;
 
 @RestController
-@CrossOrigin(origins = "http://localhost:6006")
+@CrossOrigin(origins = "*")
 public class FlightApi {
 
     @Autowired
@@ -84,11 +84,11 @@ public class FlightApi {
         return ResponseEntity.ok(getFlightResponseDTO);
     }
 
-    @PostMapping("/bookFlightInvestory")
-    public ResponseEntity<String> bookFlightInventory(@RequestBody FlightInvestory flightInventory) {
-
-
-    }
+//    @PostMapping("/bookFlightInvestory")
+//    public ResponseEntity<String> bookFlightInventory(@RequestBody FlightInvestory flightInventory) {
+//
+//        return "";
+//    }
 
     @PostMapping("/generateSessionID")
     public ResponseEntity<String> generateSessionID() {

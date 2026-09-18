@@ -36,7 +36,7 @@ public class FlightService {
         LocalDateTime departureDate = LocalDate.parse(request.departure_date).atStartOfDay();
         LocalDateTime returnDate = null;
 
-        if (request.return_date != null) {
+        if (request.return_date != null && !request.return_date.isEmpty()) {
             returnDate = LocalDate.parse(request.return_date).atStartOfDay();
         } else {
             returnDate = LocalDate.parse(request.departure_date).plusDays(6).atStartOfDay();

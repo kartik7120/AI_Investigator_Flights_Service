@@ -6,5 +6,6 @@ public enum PromoCode {
     FESTIVE_OFFER,
     WINTER_SALE,
     STUDENT15,
-    SKYEARLY10
+    SKYEARLY10,
+    NOPROMO
 }
