@@ -58,6 +58,16 @@ public class FlightApi {
         return ResponseEntity.ok(flightsResponse);
     }
 
+    @GetMapping("/getSeatMap/{flightID}")
+    public ResponseEntity<List<Seat>> getSeatMap(@PathVariable int flightID) {
+
+        List<Seat> s = flightService.getSeatMap(flightID);
+
+        System.out.println("SeatMap: " + s);
+
+        return ResponseEntity.ok(s);
+    }
+
     @PostMapping("/getFlightSSRs")
     public ResponseEntity<List<SSRDto>> getFlightSSRs(@RequestBody FlightSSRRequest flightSSRRequest) {
 
@@ -83,13 +93,7 @@ public class FlightApi {
 
         return ResponseEntity.ok(getFlightResponseDTO);
     }
-
-//    @PostMapping("/bookFlightInvestory")
-//    public ResponseEntity<String> bookFlightInventory(@RequestBody FlightInvestory flightInventory) {
-//
-//        return "";
-//    }
-
+    
     @PostMapping("/generateSessionID")
     public ResponseEntity<String> generateSessionID() {
 
@@ -98,9 +102,8 @@ public class FlightApi {
         BookingDraft bookingDraft = new BookingDraft();
         bookingDraft.setSessionId(sessionID);
         bookingDraft.setStatus(BookingDraftStatus.ACTIVE);
-//        bookingDraftService.createBookingDraft(null, bookingDraft);
         bookingDraft.setExpiresAt(LocalDateTime.now().plusMinutes(30));
-
+        bookingDraftService.saveBookingDraft(bookingDraft);
         return ResponseEntity.ok(sessionID);
     }
 

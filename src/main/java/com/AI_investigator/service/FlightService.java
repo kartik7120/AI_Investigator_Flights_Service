@@ -5,6 +5,7 @@ import com.AI_investigator.dto.GetFlightRequest;
 import com.AI_investigator.dto.enums.FareType;
 import com.AI_investigator.model.Flight;
 import com.AI_investigator.model.SSR;
+import com.AI_investigator.model.Seat;
 import com.AI_investigator.seeder.FlightDataSeeder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -58,5 +59,10 @@ public class FlightService {
     public Flight getFlight(int flightID) {
 
         return flightRepo.getFlightByid(flightID);
+    }
+
+    public List<Seat> getSeatMap(int flightID) {
+
+        return flightRepo.getFlightByid(flightID).getSeatMap();
     }
 }
