@@ -40,4 +40,5 @@ public class Seat {
 
     private int seatRow;
     private int seatColumn;
+    private int price;
 }

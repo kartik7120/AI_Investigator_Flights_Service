@@ -5,10 +5,7 @@ import com.AI_investigator.Components.SSRMapper;
 import com.AI_investigator.dto.*;
 import com.AI_investigator.dto.enums.FareType;
 import com.AI_investigator.model.*;
-import com.AI_investigator.service.BookingDraftSSRService;
-import com.AI_investigator.service.BookingDraftSeatService;
-import com.AI_investigator.service.BookingDraftService;
-import com.AI_investigator.service.FlightService;
+import com.AI_investigator.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -38,6 +35,9 @@ public class FlightApi {
 
     @Autowired
     private BookingDraftSeatService bookingDraftSeatService;
+
+    @Autowired
+    private BookingDraftPassengerService bookingDraftPassengerService;
 
     @PostMapping("/seedFlights")
     public ResponseEntity<List<Flight>> seedFlights() {
@@ -93,7 +93,7 @@ public class FlightApi {
 
         return ResponseEntity.ok(getFlightResponseDTO);
     }
-    
+
     @PostMapping("/generateSessionID")
     public ResponseEntity<String> generateSessionID() {
 
@@ -120,6 +120,16 @@ public class FlightApi {
         bookingDraftService.createBookingDraft(requests, draft);
 
         return ResponseEntity.ok("Flights added to booking draft");
+    }
+
+    @PostMapping("/bookingDraft/{sessionID}/passengers")
+    public ResponseEntity<String> bookingDraftPassenger(
+            @PathVariable String sessionID,
+            @RequestBody List<BookingDraftPassengerRequest> requests
+    ) {
+        bookingDraftPassengerService.save(sessionID, requests);
+
+        return ResponseEntity.ok("Passengers added to booking draft");
     }
 
     @PostMapping("/bookingDraft/{sessionID}/ssrs")
